@@ -12,14 +12,14 @@ func main() {
 
 	for i := 0; i < workerCount; i++ {
 		wg.Add(1)
-		go doit(i, wg)
+		go doit(i, &wg)
 	}
 
 	wg.Wait()
 	fmt.Println("all done!")
 }
 
-func doit(workerId int, wg sync.WaitGroup) {
+func doit(workerId int, wg *sync.WaitGroup) {
 	defer wg.Done()
 	fmt.Printf("[%v] is running\n", workerId)
 	time.Sleep(2 * time.Second)
